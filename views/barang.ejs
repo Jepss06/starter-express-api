@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">market</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link" href="/login">login</a>
+        <a class="nav-item nav-link" href="/register">register</a>
+        <a class="nav-item nav-link" href="/logout">logout</a>
+      </div>
+    </div>
+  </nav>
+
+  <a href="/shop/<%= idJ %>">
+    <i class="fa-solid fa-shop" style="color: #000000; margin: 2% 0 0 2%"></i>
+  </a>
+  <div class="container mt-5">
+    <% if(user){ %>
+    <h3>
+      saldo anda : <%= formatSaldo(user.saldo) %>
+    </h3>
+    <% if(user.role == 1){%>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Klik untuk mengisi data
+    </button>
+    <% } %>
+    <% } %>
+    <div class="row">
+      <!-- Button trigger modal -->
+      <div class="col-md-6">
+        saldo anda
+        <div id="saldo"></div>
+        <table class="table table-bordered border-dark col-6 mt-6">
+          <tr class="table-primary table-bordered border-dark">
+            <th>id</th>
+            <th>Nama Barang</th>
+            <th>Harga Barang</th>
+            <!-- <th>Uang</th> -->
+            <th>stock</th>
+            <th>pilih</th>
+            <th>Action</th>
+          </tr>
+          <% for(let a of bar){ %>
+          <tr>
+            <td><%= a.id_barang %></td>
+            <td><%= a.Nama_barang %></td>
+            <td><%= formatSaldo(a.harga) %></td>
+            <!-- <td><%= (a.harga) %></td> -->
+            <td><%= a.new_stock %></td>
+            <td>
+              <% if (a.new_stock <= 0) { %>
+              <div style="color: red">Stock Habis</div>
+              <% } else { %>
+
+              <button type="button" class="badge bg-primary" data-bs-toggle="modal" data-bs-target="#modalBarang" onclick="barang('<%= a.Id_barang %>', '<%= a.harga %>', '<%= a.new_stock %>')">
+                Select
+              </button>
+              <% } %>
+            </td>
+            <td>
+              <% if(user){ %>
+              <% if(user.role==1){ %>
+              <a href="/hapusBarang/<%= a.id_barang %>" onclick="return confirm('yakin hapus <%= a.Nama_barang %> dengan id <%= a.id_barang %> dek?')" class="badge bg-danger text-decoration-none text-light p-1 rounded fs-7">Hapus</a>
+              <button type="button" class="badge bg-warning p-2 border-0" data-bs-toggle="modal" data-bs-target="#modalEdit" onclick="edit('<%= a.id_barang %>','<%= a.Nama_barang %>', '<%= a.harga %>','<%= a.new_stock %>' )">
+                Edit
+              </button>
+              <% }else{ %>
+              -
+              <% } %>
+              <% } %>
+
+            </td>
+          </tr>
+          <% } %>
+        </table>
+      </div>
+
+      <!-- //table2 -->
+      <div class="col-md-6">
+        saldo anda
+        <div id="saldo"></div>
+        <table class="table table-bordered border-dark col-6 mt-4">
+          <tr class="table-primary table-bordered border-dark">
+            <th>id</th>
+            <th>Nama Barang</th>
+            <th>jumlah</th>
+            <th>total harga</th>
+            <th>bayar</th>
+            <th>Action</th>
+          </tr>
+          <% for(let a of transaksi){ %>
+          <tr>
+            <td><%= a.id_barang %></td>
+            <td><%= a.Nama_barang %></td>
+            <td><%= a.jumlah %></td>
+            <td><%= formatSaldo(a.total_harga) %></td>
+            <td>
+              <button type="button" class="badge bg-primary" onclick="bayar('<%= a.total_harga %>')">
+                bayar
+              </button>
+            </td>
+            <td>
+              <button type="button" class="badge bg-danger" data-bs-toggle="modal" onclick="cancel('<%= a.new_stock %>', '<%= a.jumlah %>', '<%= a.id_barang%>', '<%= a.id_transaksi %>')" data-bs-target="#modalCancel">
+                cancel
+              </button>
+            </td>
+          </tr>
+          <% } %>
+          <tr>
+            <td colspan="3" class="text-center">total</td>
+            <% for (let a of total){ %> <% if(a.total > 0){ %>
+            <td colspan="3"><%= formatSaldo(a.total) %></td>
+            <% }else{ %> <%= formatSaldo(0) %> <% } %> <% } %>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <%- include('modal.ejs') %>
+  <script src="/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  <!-- table>tr>td*2 -->
+</body>
+
+</html>

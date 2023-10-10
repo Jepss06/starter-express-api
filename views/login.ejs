@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <title>Register</title>
+  <link href="/Auth/css/style.css" rel="stylesheet" />
+  <link href="/Auth/css/styles.css" rel="stylesheet" />
+  <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="background">
+  <div id="layoutAuthentication">
+    <div id="layoutAuthentication_content">
+      <main>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-7">
+              <div class="card shadow-lg border-0 rounded-lg mt-5">
+                <img src="/image/logo yadika.png" class="logo">
+                <div class="card-header">
+                  <h3 class="text-center font-weight-light my-4 mt-5">login</h3>
+                </div>
+                <div class="card-body">
+                  <form action="/Auth" method="post">
+                    <div class="alert alert-<%= clas %>"><%= pesan %></div>
+                    <div class="form-floating mb-3">
+                      <input type="text" class="form-control form-control-user" name="username" value="<%= username %>" placeholder="name">
+                      <label for="name">username</label>
+                    </div>
+                    <div class="row mb-3">
+                      <div class="form-floating mb-3 mb-md-0">
+                        <input class="form-control form-control-user" name="password" id="inputPassword" type="password" placeholder="password" autocomplete="off" />
+                        <label for="inputPassword">Password</label>
+                      </div>
+                    </div>
+                </div>
+                <div class="mt-4 mb-0">
+                  <div class="d-grid"><button type="submit" class="tombol" value="login">login</button></div>
+                </div>
+                </form>
+                <div class="card-footer text-center py-3">
+                  <div class="small">Belum Memiliki Akun?<a href="/login"> Sign in!</a></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+    </main>
+  </div>

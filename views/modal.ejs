@@ -1,0 +1,113 @@
+ <!-- Modal1 -->
+ <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h1 class="modal-title fs-5" id="exampleModalLabel">Database</h1>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <div class="modal-body">
+         <form action="/tambahBarang" method="post" enctype="multipart/form-data">
+           <input type="text" hidden name="id_JenisBarang" id="id_JenisBarang" value="<%= idJ %>">
+           nama Barang
+           <input type="text" id="Namabarang" name="Namabarang" class="form-control" onchange="fungsi_harga()" />
+           harga
+           <input type="number" id="harga" name="harga" class="form-control" onchange="fungsi_harga()" />
+           stock
+           <input type="number" id="stock1" name="stock1" class="form-control" onchange="fungsi_harga()" />
+           <div class="mb-3">
+             <label for="formFileSm" class="form-label">Gambar </label>
+             <input class="form-control form-control-sm" id="formFileSm" type="file" name="photo">
+           </div>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+           Close
+         </button>
+         <button type="submit" id="harga_submit" class="btn btn-primary" style="display: none">Save changes</button>
+         </form>
+       </div>
+     </div>
+   </div>
+ </div>
+ <!-- Modal2 -->
+ <div class="modal fade" id="modalBarang" tabindex="-1" aria-labelledby="modalBarangLabel" aria-hidden="true">
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h1 class="modal-title fs-5" id="modalBarangLabel">Database</h1>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <div class="modal-body">
+         <form action="/tambahTransaksi" method="post">
+           <input type="text" hidden name="barang_id" id="barang_id">
+           <input type="text" hidden name="harga_barang" id="harga_barang">
+           <input type="text" hidden name="total" id="total">
+           <input type="text" hidden name="Stock" id="Stock">
+           <input type="text" hidden name="new_stock" id="new_stock">
+           Masukan jumlah barang
+           <input type="number" name="jumlah" id="jumlah" class="form-control" onchange="multiFungsi()">
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+           Close
+         </button>
+         <button type="submit" class="btn btn-primary" id="submitStock">Save changes</button>
+         </form>
+       </div>
+     </div>
+   </div>
+ </div>
+ <!-- Modal3 -->
+ <div class="modal fade" id="modalCancel" tabindex="-1" aria-labelledby="modalCancelLabel" aria-hidden="true">
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h1 class="modal-title fs-5" id="modalBarangLabel">Cancel transaksi</h1>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <div class="modal-body">
+         <form action="/cancelTransaksi" method="post">
+           Apakah anda ingin mengembalikan produk ini?
+           <input type="text" name="id_transaksi" id="id_transaksi" hidden>
+           <input type="text" name="barang_id2" id="barang_id2" hidden>
+           <input type="text" name="stockBaru" id="stockBaru" hidden>
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+           Close
+         </button>
+         <button type="submit" class="btn btn-primary">Save changes</button>
+         </form>
+       </div>
+     </div>
+   </div>
+ </div>
+ <!-- Modal4 -->
+ <div class="modal fade" id="modalEdit" tabindex="-1" aria-labelledby="modalEditLabel" aria-hidden="true">
+   <div class="modal-dialog">
+     <div class="modal-content">
+       <div class="modal-header">
+         <h1 class="modal-title fs-5" id="modalBarangLabel">Cancel transaksi</h1>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
+       <div class="modal-body">
+         <form action="/editBarang" method="post">
+           <input type="text" name="id_Ebarang" id="id_Ebarang" hidden>
+           Nama barang
+           <input type="text" name="nama_Ebarang" id="nama_Ebarang" class="form-control">
+           Harga barang
+           <input type="text" name="harga_Ebarang" id="harga_Ebarang" class="form-control">
+           harga
+           <input type="text" name="stock_Ebarang" id="stock_Ebarang" class="form-control">
+       </div>
+       <div class="modal-footer">
+         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+           Close
+         </button>
+         <button type="submit" class="btn btn-primary">Save changes</button>
+         </form>
+       </div>
+     </div>
+   </div>
+ </div>

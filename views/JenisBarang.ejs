@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous" />
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/">market</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-item nav-link" href="/login">login</a>
+        <a class="nav-item nav-link" href="/register">register</a>
+        <a class="nav-item nav-link " href="/logout">logout</a>
+      </div>
+    </div>
+  </nav>
+  <div class="container mt-5">
+    <!-- Button trigger modal -->
+    <% if(user){ %>
+    <h3>
+      saldo anda : <%= formatSaldo(user.saldo) %>
+    </h3>
+    <% if(user.role == 1){%>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Klik untuk mengisi data
+    </button>
+    <% } %>
+    <% } %>
+    <div class="col-md-6">
+      <table class="table table-bordered table-hover border-dark col-6 mt-3">
+        <tr class="table table-dark table-striped border-dark">
+          <th>id</th>
+          <th>Jenis Barang</th>
+          <th>Pilih</th>
+          <th>Action</th>
+        </tr>
+        <% for(let a of jenis){ %>
+        <tr>
+          <td><%= a.Id_JenisBarang %></td>
+          <td><%= a.JenisBarang %></td>
+          <td>
+            <a href="/pilih/<%= a.Id_JenisBarang %>" class="badge bg-success text-decoration-none text-light p-2 rounded fs-7">Pilih</a>
+          </td>
+          <td>
+            <% if(user){ %>
+            <% if(user.role == 1){ %>
+            <a href="/hapusJenis/<%= a.Id_JenisBarang %>" onclick="return confirm('yakin hapus <%= a.JenisBarang %> dengan id <%= a.Id_JenisBarang %> dek?')" class="badge bg-danger text-decoration-none text-light p-2 rounded fs-7">Hapus</a>
+            <button type="button" class="badge bg-warning p-2 border-0" data-bs-toggle="modal" data-bs-target="#exampleModal1" onclick="edit('<%= a.JenisBarang %>','<%= a.Id_JenisBarang %>')">
+              Edit
+            </button>
+            <% }else{%>
+            -
+            <% } %>
+            <% } %>
+          </td>
+        </tr>
+        <% } %>
+      </table>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Database</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/tambahJenis" method="post">
+            <input type="text" id="JenisBarang" name="JenisBarang" class="form-control" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal1 -->
+  <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModal1Label" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModal1Label">Edit jenis</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="/editJenis" method="post">
+            Jenis barang
+            <input type="text" id="Jenis" name="Jenis" class="form-control" />
+            <input type="text" hidden id="id_Jenis" name="id_Jenis" />
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+            Close
+          </button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const edit = (jenis, id_jenis) => {
+      console.log(jenis, id_jenis);
+      document.getElementById('Jenis').value = jenis
+      document.getElementById('id_Jenis').value = id_jenis
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  <!-- table transaksi -->
+</body>
+
+</html>
